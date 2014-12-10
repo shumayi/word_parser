@@ -61,30 +61,23 @@ class Parser(object):
         # If the sentence begins with a word, we append the word elements first,
         # then follow by a separator, keep doing this until we reach the end of the list
         if sentence[0].isalpha():
+            for a, b in zip(word_arr, separator_arr):
+                parsed_string.append(a + b)
+
             if word_arr_len > separator_arr_len:
-                for i in range(separator_arr_len):
-                    parsed_string.append(word_arr[i] + separator_arr[i])
                 parsed_string.append(word_arr[-1])
             elif word_arr_len < separator_arr_len:
-                for i in range(word_arr_len):
-                    parsed_string.append(word_arr[i] + separator_arr[i])
                 parsed_string.append(separator_arr[-1])
-            else:
-                for i in range(word_arr_len):
-                    parsed_string.append(word_arr[i] + separator_arr[i])
+
         # If the sentence begins with a seperator, we append the seperator element first,
         # then follow by a word, keep doing this until we reach the end of the list
         else:
+            for a, b in zip(word_arr, separator_arr):
+                parsed_string.append(b + a)
+
             if word_arr_len > separator_arr_len:
-                for i in range(separator_arr_len):
-                    parsed_string.append(separator_arr[i] + word_arr[i])
                 parsed_string.append(word_arr[-1])
             elif word_arr_len < separator_arr_len:
-                for i in range(word_arr_len):
-                    parsed_string.append(separator_arr[i] + word_arr[i])
                 parsed_string.append(separator_arr[-1])
-            else:
-                for i in range(word_arr_len):
-                    parsed_string.append(separator_arr[i] + word_arr[i])
 
         return ''.join(parsed_string)
